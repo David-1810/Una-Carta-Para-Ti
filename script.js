@@ -133,9 +133,11 @@ const mensajes = {
 
 let ultimaCarta = "";
 let ultimoMensaje = "";
+let respuestaEnviada = false;
 
 function animarYAbrir(elemento, tipo) {
     ultimaCarta = tipo;
+    respuestaEnviada = false
     elemento.classList.add("opening");
 
     setTimeout(() => {
@@ -145,42 +147,80 @@ function animarYAbrir(elemento, tipo) {
 }
 
 function mostrarMensaje(tipo) {
-    const opciones = mensajes[tipo];
-    const mensaje = opciones[Math.floor(Math.random() * opciones.length)];
-    ultimoMensaje = mensaje;
+  const opciones = mensajes[tipo];
+  const mensaje = opciones[Math.floor(Math.random() * opciones.length)];
+  ultimoMensaje = mensaje;
 
-    const zonaCartas = document.getElementById("zonaCartas");
-    const mensajeDiv = document.getElementById("mensajeMostrado");
-    const contenido = document.getElementById("contenidoMensaje");
+  const zonaCartas = document.getElementById("zonaCartas");
+  const mensajeDiv = document.getElementById("mensajeMostrado");
+  const contenido = document.getElementById("contenidoMensaje");
 
-    contenido.innerText = "";
-    mensajeDiv.classList.add("visible");
-    mensajeDiv.style.display = "block";
-    zonaCartas.classList.add("blur");
+  // Frases intro personalizadas
+  const frasesIntro = {
+    triste: "Como estás triste, quiero decirte lo siguiente:",
+    dudar: "Como estás dudando de ti, quiero decirte lo siguiente:",
+    sonreir: "Como quieres sonreír, quiero decirte lo siguiente:",
+    extrañar: "Como me extrañas, quiero decirte lo siguiente:",
+    feliz: "Como estás feliz, quiero decirte lo siguiente:",
+    noDormir: "Como no puedes dormir, quiero decirte lo siguiente:",
+    miedo: "Como tienes miedo, quiero decirte lo siguiente:",
+    amor: "Solo porque sí, quiero decirte lo siguiente:"
+  };
 
-    document.querySelector(".cerrar").disabled = false;
+  const introduccion = frasesIntro[tipo] || "Quiero decirte lo siguiente:";
 
-    let i = 0;
-    const intervalo = setInterval(() => {
-        if (i < mensaje.length) {
-            contenido.innerText += mensaje.charAt(i);
-            i++;
-        } else {
-            clearInterval(intervalo);
-        }
-    }, 35);
+  contenido.innerText = "";
+  mensajeDiv.classList.add("visible");
+  mensajeDiv.style.display = "block";
+  zonaCartas.classList.add("blur");
+  document.querySelector(".cerrar").disabled = false;
+
+  let textoFinal = introduccion + "\n\n" + mensaje;
+  let i = 0;
+  const intervalo = setInterval(() => {
+    if (i < textoFinal.length) {
+      contenido.innerText += textoFinal.charAt(i);
+      i++;
+    } else {
+      clearInterval(intervalo);
+    }
+  }, 35);
 }
+
 
 function cerrarMensaje() {
-    const textarea = document.getElementById("sentimiento");
-    const respuesta = textarea.value.trim();
-    const mensajeDiv = document.getElementById("mensajeMostrado");
-    mensajeDiv.classList.remove("visible");
-    mensajeDiv.style.display = "none";
-    document.getElementById("escribeAlgo").style.display = "none";
-    document.getElementById("zonaCartas").classList.remove("blur");
-    textarea.value = "";
+  const textarea = document.getElementById("sentimiento");
+  const respuesta = textarea.value.trim();
+
+  if (!respuestaEnviada) {
+    const ahora = new Date();
+    const fecha = ahora.toISOString().split("T")[0];
+    const hora = ahora.toTimeString().split(" ")[0];
+
+    db.collection("respuestas_cartas").add({
+      carta: ultimaCarta,
+      mensaje: ultimoMensaje,
+      respuesta: respuesta,
+      fecha: fecha,
+      hora: hora
+    }).then(() => {
+      console.log("Respuesta enviada automáticamente al cerrar.");
+    }).catch((error) => {
+      console.error("Error al guardar al cerrar:", error);
+    });
+  }
+
+  const mensajeDiv = document.getElementById("mensajeMostrado");
+  mensajeDiv.classList.remove("visible");
+  mensajeDiv.style.display = "none";
+  document.getElementById("escribeAlgo").style.display = "none";
+  document.getElementById("zonaCartas").classList.remove("blur");
+
+  textarea.value = "";
+  textarea.style.display = "block";
+  document.querySelector("button.enviar").style.display = "inline-block";
 }
+
 
 function enviarRespuesta() {
     const textarea = document.getElementById("sentimiento");
@@ -206,11 +246,14 @@ function enviarRespuesta() {
         hora: hora
     })
         .then(() => {
+            respuestaEnviada = true;        
             document.getElementById("mensajeConfirmacion").style.display = "block";
             textarea.value = "";
             cerrarBtn.disabled = false;
             setTimeout(() => {
                 document.getElementById("mensajeConfirmacion").style.display = "none";
+                textarea.style.display = "none";
+                document.querySelector("button.enviar").style.display = "none";
             }, 3000);
         })
         .catch((error) => {
