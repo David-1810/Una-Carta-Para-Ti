@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>💌 Una Carta Para Ti</title>
+    <link rel="stylesheet" href="estilos.css" />
+</head>
+
+<body>
+    <h1>💌 Una Carta Para Ti</h1>
+    <p>Toca cualquier carta y deja que el universo susurre algo solo para ti...</p>
+
+    <div class="cartas" id="zonaCartas">
+        <div class="carta" onclick="animarYAbrir(this, 'triste')">Cuando estés triste 😔</div>
+        <div class="carta" onclick="animarYAbrir(this, 'dudar')">Cuando dudes de ti 💭</div>
+        <div class="carta" onclick="animarYAbrir(this, 'sonreir')">Cuando quieras sonreír 😊</div>
+        <div class="carta" onclick="animarYAbrir(this, 'extrañar')">Cuando me extrañes 🥺</div>
+        <div class="carta" onclick="animarYAbrir(this, 'feliz')">Cuando estés feliz 🎉</div>
+        <div class="carta" onclick="animarYAbrir(this, 'noDormir')">Cuando no puedas dormir 🌙</div>
+        <div class="carta" onclick="animarYAbrir(this, 'miedo')">Cuando tengas miedo 😨</div>
+        <div class="carta" onclick="animarYAbrir(this, 'amor')">Solo porque sí ❤️</div>
+    </div>
+
+    <div id="mensajeMostrado" class="mensaje">
+        <button class="cerrar" onclick="cerrarMensaje()">❌</button>
+        <div id="contenidoMensaje"></div>
+        <textarea id="sentimiento" placeholder="¿Qué sentiste al leer esta carta? ✨"></textarea>
+
+        <button class="enviar" onclick="enviarRespuesta()">Enviar respuesta</button>
+        <p id="mensajeConfirmacion">
+            💌 ¡Tu respuesta se ha enviado con éxito!
+        </p>
+        <p id="escribeAlgo">
+            ✍️ Por favor, escribe cómo te sentiste antes de enviar
+        </p>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
