@@ -1,229 +1,229 @@
 :root {
-      --rosa-claro: #FDEDEC;
-      --rosa: #FADBD8;
-      --rosa-oscuro: #F1948A;
-      --texto: #6E2C00;
-      --blanco: #fff;
-    }
+  --lila-claro: #F5E6FA;
+  --lila: #DCC6F8;
+  --lila-oscuro: #A569BD;
+  --texto: #4A235A;
+  --blanco: #fff;
+}
 
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom right, var(--rosa-claro), var(--rosa));
-      font-family: 'Quicksand', sans-serif;
-      color: var(--texto);
-      text-align: center;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px 15px;
-    }
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, var(--lila-claro), var(--lila));
+    font-family: 'Quicksand', sans-serif;
+    color: var(--texto);
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 15px;
+}
 
-    h1 {
-      font-family: 'Dancing Script', cursive;
-      font-size: 3em;
-      margin-bottom: 0.2em;
-    }
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3em;
+    margin-bottom: 0.2em;
+}
 
-    .cartas {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
-      max-width: 800px;
-      transition: filter 0.3s ease;
-    }
+.cartas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    max-width: 800px;
+    transition: filter 0.3s ease;
+}
 
-    .carta {
-      width: 160px;
-      height: 120px;
-      background: var(--blanco);
-      border: 2px solid var(--rosa-oscuro);
-      border-radius: 16px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 1em;
-      cursor: pointer;
-      position: relative;
-      padding-top: 20px;
-      perspective: 600px;
-      transition: transform 0.3s ease;
-    }
+.carta {
+    width: 160px;
+    height: 120px;
+    background: var(--blanco);
+    border: 2px solid var(--lila-oscuro);
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    position: relative;
+    padding-top: 20px;
+    perspective: 600px;
+    transition: transform 0.3s ease;
+}
 
-    .carta::before {
-      content: "💌";
-      font-size: 1.8em;
-      position: absolute;
-      top: 5px;
-      animation: flotar 2.5s infinite ease-in-out;
-    }
+.carta::before {
+    content: "💌";
+    font-size: 1.8em;
+    position: absolute;
+    top: 5px;
+    animation: flotar 2.5s infinite ease-in-out;
+}
 
-    .carta:hover {
-      transform: scale(1.05);
-    }
+.carta:hover {
+    transform: scale(1.05);
+}
 
-    @keyframes flotar {
+@keyframes flotar {
 
-      0%,
-      100% {
+    0%,
+    100% {
         transform: translateY(0);
-      }
+    }
 
-      50% {
+    50% {
         transform: translateY(-6px);
-      }
     }
+}
 
-    .carta.opening {
-      animation: abrirCarta 0.8s ease forwards;
-    }
+.carta.opening {
+    animation: abrirCarta 0.8s ease forwards;
+}
 
-    @keyframes abrirCarta {
-      0% {
+@keyframes abrirCarta {
+    0% {
         transform: rotateX(0deg);
-      }
+    }
 
-      100% {
+    100% {
         transform: rotateX(-25deg) scale(1.02);
-      }
     }
+}
 
-    .blur {
-      filter: blur(5px);
-      pointer-events: none;
-      user-select: none;
-    }
+.blur {
+    filter: blur(5px);
+    pointer-events: none;
+    user-select: none;
+}
 
-    .mensaje {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      background-color: white;
-      border-radius: 14px;
-      border: 2px dashed var(--rosa-oscuro);
-      font-size: 1.3em;
-      line-height: 1.5;
-      white-space: pre-wrap;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-      max-width: 90%;
-      width: 90%;
-      padding: 30px 20px 40px;
-      z-index: 10;
-      opacity: 0;
-      pointer-events: none;
-      transform: translate(-50%, -50%) scale(0.95);
-    }
+.mensaje {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    border-radius: 14px;
+    border: 2px dashed var(--lila-oscuro);
+    font-size: 1.3em;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    max-width: 90%;
+    width: 90%;
+    padding: 30px 20px 40px;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.95);
+}
 
-    .mensaje.visible {
-      animation: aparecerSuave 0.6s ease forwards;
-      pointer-events: auto;
-    }
+.mensaje.visible {
+    animation: aparecerSuave 0.6s ease forwards;
+    pointer-events: auto;
+}
 
-    @keyframes aparecerSuave {
-      0% {
+@keyframes aparecerSuave {
+    0% {
         opacity: 0;
         transform: translate(-50%, -40%) scale(0.95);
-      }
+    }
 
-      100% {
+    100% {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
-      }
     }
+}
 
-    .cerrar {
-      position: absolute;
-      top: 8px;
-      right: 12px;
-      background: none;
-      border: none;
-      font-size: 1.2em;
-      cursor: pointer;
-      color: var(--rosa-oscuro);
-    }
+.cerrar {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: var(--lila-oscuro);
+}
 
-    textarea {
-      width: 90%;
-      max-width: 100%;
-      height: 80px;
-      margin-top: 20px;
-      margin-bottom: 6px;
-      padding: 12px;
-      font-size: 1em;
-      border: 1px solid var(--rosa-oscuro);
-      border-radius: 10px;
-      font-family: 'Quicksand', sans-serif;
-      resize: none;
-      background-color: #fefefe;
-    }
+textarea {
+    width: 90%;
+    max-width: 100%;
+    height: 80px;
+    margin-top: 20px;
+    margin-bottom: 6px;
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid var(--lila-oscuro);
+    border-radius: 10px;
+    font-family: 'Quicksand', sans-serif;
+    resize: none;
+    background-color: #fefefe;
+}
 
-    button.enviar {
-      margin-top: 12px;
-      background-color: var(--rosa-oscuro);
-      color: white;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
+button.enviar {
+    margin-top: 12px;
+    background-color: var(--lila-oscuro);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
 
-    button.enviar:hover {
-      background-color: #D98880;
-    }
+button.enviar:hover {
+    background-color: #D98880;
+}
 
-    #mensajeConfirmacion {
-  color: #2e7d32;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 14px;
-  margin-top: 3px;
-  text-align: left;
-  display: none;
+#mensajeConfirmacion {
+    color: #2e7d32;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    margin-top: 3px;
+    text-align: left;
+    display: none;
 }
 
 #escribeAlgo {
-  color: #c62828;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 14px;
-  margin-top: 3px;
-  text-align: left;
-  display: none;
+    color: #c62828;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    margin-top: 3px;
+    text-align: left;
+    display: none;
 }
 
 
-    @keyframes fadeIn {
-      from {
+@keyframes fadeIn {
+    from {
         opacity: 0;
         transform: translateY(5px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-    @media (max-width: 600px) {
-      h1 {
+
+@media (max-width: 600px) {
+    h1 {
         font-size: 2.3em;
-      }
+    }
 
-      .carta {
+    .carta {
         width: 90%;
         height: auto;
         padding: 35px 10px 15px;
         font-size: 1.1em;
-      }
-
-      .mensaje {
-        font-size: 1.1em;
-      }
     }
+
+    .mensaje {
+        font-size: 1.1em;
+    }
+}
